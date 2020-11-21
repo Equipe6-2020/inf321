@@ -14,21 +14,13 @@ Feature: Sign into Multibags web page
     When the user provides the following email and password pressing SIGN IN button:
       |     email       |       password        |
       |    <email>      |      <password>       |
-    Then the following message shall be shown: <$message>
+    Then the following message shall be shown: <message>
 
     Examples:
-      |     email       |       password        |
-      |    <email>      |      <password>       |
-
-    When the Account Holder requests "My Account"
-    When the Account Holder requests "Sign in"
-    Then the portal should open a form for typing $<Current_email_address>
-    And the $<password>
-    When the Account Holder requests "SIGN IN"
-    Given the following client:
-      | user     | user@domain.com |
-      | password | password123     |
-    Then the portal should open My_Account page
+      |     email         |       password        | message
+      | "pcesml@valid.ao" |       "654321"        | "Login Failed. Username or Password is incorrect."
+      |       ""          |       ""              | "Login Failed. Username or Password is incorrect."
+      | "pcesml"          |       "654321"        | "Login Failed. Username or Password is incorrect."
 
   Scenario Outline: Valid login
     Given the user accessed the following options:
@@ -41,4 +33,4 @@ Feature: Sign into Multibags web page
 
     Examples:
       |     email         |       password        |
-      | "pcesml@valid.ao" |       "654321"        |
+      | "pcesml@valid.ao" |       "123456"        |
