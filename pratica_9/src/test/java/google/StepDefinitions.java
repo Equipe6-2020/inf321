@@ -21,7 +21,12 @@ public class StepDefinitions {
 
     @Before()
     public void before() {
-        System.setProperty("webdriver.gecko.driver", "./src/test/resources/geckodriver");
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            System.setProperty("webdriver.gecko.driver", "./src/test/resources/geckodriver.exe");
+        } else {
+            System.setProperty("webdriver.gecko.driver", "./src/test/resources/geckodriver");    
+        }
+        
         driver = new FirefoxDriver();
     }
 
