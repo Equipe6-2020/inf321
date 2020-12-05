@@ -12,3 +12,15 @@ Feature: Sign into Multibags web page
       | "pcesml@valid.ao" |       "654321"        | "Login Failed. Username or Password is incorrect." |
       |       ""          |       ""              | "Login Failed. Username or Password is incorrect." |
       | "pcesml"          |       "654321"        | "Login Failed. Username or Password is incorrect." |
+
+  Scenario Outline: Valid login
+    Given the user accessed the following options:
+      |My Account|
+      |Sign in   |
+    When the user provides the following <email> and <password> pressing SIGN IN button
+    Then the following page shall be shown to the user:
+      | shop/customer/dashboard.html |
+
+    Examples:
+      |     email         |       password        |
+      | "pcesml@valid.ao" |       "123456"        |

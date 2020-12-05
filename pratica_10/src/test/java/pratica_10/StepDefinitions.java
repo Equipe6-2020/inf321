@@ -10,9 +10,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.junit.Assert.*;
 
 public class StepDefinitions {
@@ -55,6 +60,7 @@ public class StepDefinitions {
         driver.findElement(By.id("signin_password")).clear();
         driver.findElement(By.id("signin_password")).sendKeys(password);
         driver.findElement(By.id("genericLogin-button")).click();
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }
 
     @Then("the following {string} shall be shown")
@@ -62,6 +68,17 @@ public class StepDefinitions {
         String loginError = driver.findElement(By.id("loginError")).getText();
         assertEquals(message, loginError);
     }
+
+    @Then("the following page shall be shown to the user:")
+    public void the_following_page_shall_be_shown_to_the_user(io.cucumber.datatable.DataTable dataTable) {
+
+        String partUrl = dataTable.asList().get(0);
+//        assertTrue(driver.getCurrentUrl().contains(partUrl));
+
+        System.out.println(partUrl + " -- " + driver.getCurrentUrl());
+    }
+
+
 
     @After
     public void tearDown() throws Exception {
